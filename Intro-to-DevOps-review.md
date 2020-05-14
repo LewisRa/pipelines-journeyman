@@ -7,6 +7,9 @@ sudo kill -9 <processid>
  
 sudo apt install net-tools
 netstat -tulpn (to see which ports are listening)
+
+history > history_for_print.txt
+
 ---
 sudo apt install nginx 
 service nginx status(nginx is usually working when install)
@@ -42,6 +45,7 @@ cd /var/www/html
 ll
 
 cat (vim) index nginx-debian.html
+
 ---
 To set up more than one server in AWS download nginx on first server and that would be load balancer. Start up 3 mirror image instances in AWS, name them webserver 1, webserver2, webserver and install nginx on all 3 instances (check if there is a easier way to do that other then doing them one by one? ? ?) 
 
@@ -53,7 +57,41 @@ To set up more than one server in AWS download nginx on first server and that wo
 - type loadbalancer into browser and you can go to the nginx welcome page. (1:10)
 - repeat for webservers
 
- In load balancer terminal, copy sites-available/default file just in case you break something. (sudo cp default default.bak)
+In load balancer terminal, copy sites-available/default file just in case you break something. (sudo cp default default.bak)
 
+---
+Download Terraform
+
+cd Downloads
+
+unzip terraform_0.12.25_linux_amd64.zip
+
+./terraform
+
+which ls
+
+sudo cp terraform/bin/
+
+terraform
+
+vim ec2.tf
+```
+provider "aws" {
+  profile    = "default"
+  region     = "us-east-1"
+}
+
+resource "aws_instance" "example" {
+  ami           = "ami-2757f631"
+  instance_type = "t2.micro"
+}
+
+```
+
+terraform init (make sure you are in the same file as .tf file)
+terraform fmt
+terraform validate
+terraform plan
+terraform apply
 
 
