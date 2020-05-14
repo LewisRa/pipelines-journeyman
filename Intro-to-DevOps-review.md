@@ -13,6 +13,7 @@ history > history_for_print.txt
 In computing, ".bak" is a filename extension commonly used to signify a backup copy of a file.Database Applications like FoxPro and SQL Server use .bak files to back up their databases and other applications, like XML shell, create .bak files in their autosave process.[1] They do not get automatically deleted, so they need to be manually deleted after the process using it is stopped.
 
 ---
+# Create and Start Web Server Using Nginx
 sudo apt install nginx 
 service nginx status(nginx is usually working when install)
 service nginx start (to start nginx)
@@ -49,6 +50,7 @@ ll
 cat (vim) index nginx-debian.html
 
 ---
+# Set up Load Balancer
 To set up more than one server in AWS download nginx on first server and that would be load balancer. Start up 3 mirror image instances in AWS, name them webserver 1, webserver2, webserver and install nginx on all 3 instances (check if there is a easier way to do that other then doing them one by one? ? ?) 
 
 - make sure instances are in the same security group
@@ -62,6 +64,9 @@ To set up more than one server in AWS download nginx on first server and that wo
 In load balancer terminal, copy sites-available/default file just in case you break something. (sudo cp default default.bak)
 
 ---
+# Use Terraform to spin up multiple AWS instances at once
+Terrafrom is an open-source infrastructure as code software tool created by HashiCorp. It enables users to define and provision a datacenter infrastructure using a high-level configuration language
+
 Download Terraform
 
 cd Downloads
@@ -136,5 +141,68 @@ terraform validate
 terraform plan
 
 terraform apply
+---
+# Use Ansible to configure multiple AWS instances at once
+Ansible is an open-source software provisioning, **configuration management**, and application-deployment tool.
 
+```
+---
+# This playbook deploys the whole application stack in this site.
 
+# Apply common configuration to all hosts
+- hosts: all
+
+  roles:
+  - common
+
+# Configure and deploy database servers.
+- hosts: dbservers
+
+  roles:
+  - db
+
+# Configure and deploy the web servers. Note that we include two roles
+# here, the 'base-apache' role which simply sets up Apache, and 'web'
+# which includes our example web application.
+
+- hosts: webservers
+
+  roles:
+  - base-apache
+  - web
+
+# Configure and deploy the load balancer(s).
+- hosts: lbservers
+
+  roles:
+  - haproxy
+
+# Configure and deploy the Nagios monitoring node(s).
+- hosts: monitoring
+
+  roles:
+  - base-apache
+  - nagios
+```
+Ansible.yaml
+```
+- hosts: webservers
+  gather_facts: yes
+  become: true
+  become_user: root
+  tasks:
+  - name: Install Nginx
+    apt: update_cache=yes pkg=nginx state=present
+    notify:
+    - restart nginx
+  - name: Enable Nginx during boot
+    service: name=nginx state=started enabled=yes
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+
+hosts:dbservers
+become_user: root
+tasks:
+- name: pkg=mysql-server state=present
+```
