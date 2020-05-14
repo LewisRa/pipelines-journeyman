@@ -79,21 +79,62 @@ terraform
 vim ec2.tf
 ```
 provider "aws" {
-  profile    = "default"
-  region     = "us-east-1"
+  profile = "default"
+  region  = var.region
 }
 
-resource "aws_instance" "example" {
-  ami           = "ami-2757f631"
-  instance_type = "t2.micro"
+
+resource "aws_instance" "ansible-control-server" {
+  ami           = var.mastermnd_ami
+  instance_type = var.mastermnd_instance
+  tags = {
+    Name = "ansible-control"
+  }
+}
+
+resource "aws_instance" "ansible-web-servers" {
+  count         = length(var.web_servers)
+  ami           = var.mastermnd_ami
+  instance_type = var.mastermnd_instance
+  tags = {
+    Name = element(var.web_servers, count.index)
+  }
 }
 
 ```
+vim var.tf
+
+```
+variable "region" {
+  default = "us-east-1"
+}
+
+variable "mastermnd_ami" {
+  default = "ami-07ebfd5b3428b6f4d"
+}
+
+variable "mastermnd_instance" {
+  default = "t2.micro"
+}
+
+variable "web_servers" {
+  type = list(string)
+  default = [
+    "ansible-web-1",
+    "ansible-web-2",
+    "ansible-web-3",
+  ]
+}
+```
 
 terraform init (make sure you are in the same file as .tf file)
+
 terraform fmt
+
 terraform validate
+
 terraform plan
+
 terraform apply
 
 
