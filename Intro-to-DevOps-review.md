@@ -10,6 +10,8 @@ netstat -tulpn (to see which ports are listening)
 
 history > history_for_print.txt
 
+In computing, ".bak" is a filename extension commonly used to signify a backup copy of a file.Database Applications like FoxPro and SQL Server use .bak files to back up their databases and other applications, like XML shell, create .bak files in their autosave process.[1] They do not get automatically deleted, so they need to be manually deleted after the process using it is stopped.
+
 ---
 sudo apt install nginx 
 service nginx status(nginx is usually working when install)
