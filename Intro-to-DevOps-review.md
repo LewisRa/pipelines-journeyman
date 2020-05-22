@@ -106,6 +106,7 @@ resource "aws_instance" "ansible-web-servers" {
   }
 }
 
+
 ```
 vim var.tf
 
