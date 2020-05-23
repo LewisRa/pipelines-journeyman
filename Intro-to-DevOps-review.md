@@ -22,7 +22,9 @@ In computing, ".bak" is a filename extension commonly used to signify a backup c
 
 - Host file can be a simple solution for a DNS server that converts IP addresses --> domanin
 
-**How to 
+**How to run programs in the background indefinitely when you are not logged into the server but the server is still running?**--> daemon/ service 
+- rails server -d
+- forever? 
 
 ---
 # Create and Start Web Server Using Nginx
