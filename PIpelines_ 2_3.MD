@@ -22,6 +22,153 @@ In this class, we spun up 4 servers and decentalized (distributed) the on prem s
 - rails server -d
 - forever? 
 ---
+
+#  Software Development Lifecycle + Source Control Strategies: Pipelines 3/8
+
+```
+# AMAZON_ECR_ENDPOINT_LOWER=url-for-lower-ECR
+# AMAZON_ECR_REPO=repo-name-within-ECR
+# LOWER_AWS_KEY=
+# LOWER_AWS_SECRET=
+#
+#
+### Deployment Workflows:
+#
+# Push to Branch     | Deploy to Environment
+# ------------------ | ---------------------
+# integration        | mint
+# staging            | staging
+# master             | HOLD -> prod
+#
+
+version: 2.1
+
+orbs:
+  snyk: snyk/snyk@0.0.8
+
+workflows:
+  test-build-deploy:
+    jobs:
+    - cache-dependencies-lower:
+        filters:
+          branches:
+            only:
+            - /.*/
+          tags:
+            only:
+            - mint
+            - amy
+            - pat
+            - qa
+            - /int-\w+/ 
+    - cache-dependencies-upper:
+        filters:
+          branches:
+            ignore:
+            - /.*/
+          tags:
+            only:
+            - staging
+            - production
+        context: snyk   
+    - test-jest:
+        requires: 
+          - cache-dependencies-lower
+          - cache-dependencies-upper
+        filters:
+          branches:
+            only:
+            - /.*/
+          tags:
+            only:
+            - /.*/
+    - test-poirot:
+        requires: 
+          - cache-dependencies-lower
+          - cache-dependencies-upper
+        filters:
+          branches:
+            only:
+            - /.*/
+          tags:
+            only:
+            - /.*/
+    - test-mocha:
+        requires: 
+          - cache-dependencies-lower
+          - cache-dependencies-upper
+        filters:
+          branches:
+            only:
+            - /.*/
+          tags:
+            only:
+            - /.*/
+    - test-format:
+        requires:
+          - cache-dependencies-lower
+          - cache-dependencies-upper
+        filters:
+          branches:
+            only:
+            - /.*/
+          tags:
+            only:
+            - /.*/    
+    - build-webpack:
+        requires: [test-jest, test-mocha, test-format, test-poirot]
+        filters:
+          branches:
+            only:
+            - master
+            - /[Ff]eature-\w+-\d+[-\w]*/
+            - /snyk-fix-.*/
+          tags:
+            only:
+            - production
+            - staging
+            - mint
+            - amy
+            - pat
+            - qa
+            - /int-\w+/
+            - /RELEASE-\d+/
+   ...
+   ##########################################################################################################################
+    - build-package:
+        
+    - upload-package:
+    
+    - deploy-package:
+       
+    - hold:
+     
+    - upload-package-with-approval:
+       
+    - deploy-package-with-approval:
+     ##########################################################################################################################
+....
+  deploy-package-with-approval:
+    docker:
+      - image: ussba/cc-docker-git-aws:latest
+    steps:
+      - checkout
+      - run:
+          name: deploy
+          shell: /bin/bash -eo pipefail
+          command: |
+            if [ -z "${CIRCLE_BRANCH}" ]
+            then
+              TARGET_ENVIRONMENT=${CIRCLE_TAG}
+            else
+              TARGET_ENVIRONMENT=${CIRCLE_BRANCH}
+            fi
+            export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+            export AWS_DEFAULT_OUTPUT=${AWS_DEFAULT_OUTPUT:-json}
+            export VERSION_ID=$(aws s3api list-object-versions --bucket ${BUCKET_NAME} --prefix "${TARGET_ENVIRONMENT}/katana-lambda.zip" | jq '.Versions[0].VersionId')
+            export LAMBDA_NAME="${TARGET_ENVIRONMENT}-KatanaLambda"
+            aws lambda update-function-code --function-name "${LAMBDA_NAME}" --s3-bucket "${BUCKET_NAME}" --s3-key "${TARGET_ENVIRONMENT}/katana-lambda.zip" --s3-object-version "${VERSION_ID}"
+```
 # Misc. 
 - Only one application can run on a port a time. 
 - Even though mongodb usually runs on port 3000, since it is on docker, we can run it on any port we want. 
