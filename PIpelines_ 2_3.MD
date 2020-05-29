@@ -26,7 +26,7 @@ In this class, we spun up 4 servers and decentalized (distributed) the on prem s
 #  Software Development Lifecycle + Source Control Strategies: Pipelines 3/8
 ## Example: this docker file involves git and AWS: for example: build-webpack only runs when master branch are feature branch is pushed
 
-!(https://github.com/LewisRa/pipelines-journeyman/blob/master/markdownImages/gitflow.PNG)
+![](https://github.com/LewisRa/pipelines-journeyman/blob/master/markdownImages/gitflow.PNG)
 ```
 # AMAZON_ECR_ENDPOINT_LOWER=url-for-lower-ECR
 # AMAZON_ECR_REPO=repo-name-within-ECR
