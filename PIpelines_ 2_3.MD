@@ -27,6 +27,54 @@ In this class, we spun up 4 servers and decentalized (distributed) the on prem s
 ## Example: this docker file involves git and AWS: for example: build-webpack only runs when master branch are feature branch is pushed
 
 ![](https://github.com/LewisRa/pipelines-journeyman/blob/master/markdownImages/gitflow.PNG)
+
+**Hot fixes- use hot fixes when a bug is found in production (master branch) but you're not ready to release other
+features into production so you have a branch specifically for fixing bugs**
+All feature branches are merge into the development branch
+
+
+From development to release branches: let's say all three
+features (A, B, and C) have been merged into
+develop and they now exist on the
+develop branch but we want to deploy we
+want to create a release from there. Create a new branch called version 1.0.0
+and this is gonna be our first version
+so we create it and then merge that into
+our release branch. We go from release branches to staging/UAT before we merge into master which is production to make sure
+that everything is working and good to
+go
+
+The idea is anything that
+gets merged into master is ultimately
+what is deployed. You can set up
+some automation, so that anything
+that gets brought into master will
+instantly deploy to the mobile app .e.
+the moment we merge in to the master branch, anyone that has
+our mobile app downloaded will get a
+pop-up that says "hey,
+version 1.0.2 is ready, would you
+like to download it?" 
+
+Protecting feature branches from development brach is our code reviews and pull requests so
+before anything can be merged in we make
+sure that multiple people have eyes on
+it
+
+and then going from a version branch
+into release branch we make sure " is
+this working? is this what we want to
+actually test as a release?
+
+ before we merge into master we
+make sure that the production
+environment ready to accept this latest
+merge like have we set up all the
+environment variables is everything good
+to go
+and then we can merge it in and it all
+it all works 
+
 ```
 # AMAZON_ECR_ENDPOINT_LOWER=url-for-lower-ECR
 # AMAZON_ECR_REPO=repo-name-within-ECR
