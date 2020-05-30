@@ -77,7 +77,7 @@ it all works
 
 #### Squash all my commits into one for GitHub pull request 
 
-#### Staging/UAT has the same environment (same docker container, database, etc) as production/ master branch) unlike development branch  ![](https://github.com/LewisRa/pipelines-journeyman/blob/master/markdownImages/gitbranchPermissions.PNG)
+#### Staging/UAT has the same environment (same docker container, database, etc) as production/ master branch) unlike development branch  ![](https://github.com/LewisRa/pipelines-journeyman/blob/master/markdownImages/gitbranchPermission.PNG)
 
 ```
 # AMAZON_ECR_ENDPOINT_LOWER=url-for-lower-ECR
