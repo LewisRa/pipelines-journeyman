@@ -75,6 +75,10 @@ to go
 and then we can merge it in and it all
 it all works 
 
+#### Squash all my commits into one for GitHub pull request 
+
+#### Staging/UAT has the same environment (same docker container, database, etc) as production/ master branch) unlike development branch  ![](https://github.com/LewisRa/pipelines-journeyman/blob/master/markdownImages/gitbranchPermissions.PNG)
+
 ```
 # AMAZON_ECR_ENDPOINT_LOWER=url-for-lower-ECR
 # AMAZON_ECR_REPO=repo-name-within-ECR
