@@ -7,5 +7,16 @@
 7. AWS S3 +Static Website Hosting
 8. Content Delivery Networks + Cloudfront
 9. Cloud Deployment Strategies
+  - Recreate
+  - Highlander/Big Bang
+  - Canary
+  - A/B Testing
+  - Rolling
+  - Blue Green
 10. On Prem, Hybrid Cloud and RDS
 11. Elastic Beanstalk
+12. Infrastructure as Code with Cloudformation
+13. DNS + Route53
+14. Cloudwatch, Systems Manager and Billing
+15.
+16.
