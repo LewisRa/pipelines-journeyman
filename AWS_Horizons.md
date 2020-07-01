@@ -6,6 +6,10 @@
 6. Load Balancers
 7. AWS S3 +Static Website Hosting
 8. Content Delivery Networks + Cloudfront
+- CDN are geographically distributed group of servers which work together to provide fast delivery of Internet content. These servers are called **edge locations**
+- Cloudsearch functions by caching(saving/remembering) the first request made to an origin. All subsequent requests will be served from the edge locations.
+- Cloudfront Orgin - A Location where content is stored
+- A Cloudfront Distribution - A distribution tells CloudFront where you want content to be delivered from, and the details about how to track and manage content delivery.
 9. Cloud Deployment Strategies
   - Recreate
   - Highlander/Big Bang
