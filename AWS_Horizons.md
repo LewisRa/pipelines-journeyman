@@ -24,6 +24,13 @@
 11. Elastic Beanstalk
 12. Infrastructure as Code with Cloudformation
 13. DNS + Route53
-14. Cloudwatch, Systems Manager and Billing
-15.
-16.
+14. Cloudwatch, Systems Manager and Billing:  Application and Infrastructure Monitoring
+  - CloudWatch collects monitoring and operational data in the form of logs, metrics, and events
+  - Observability of your AWS resources and applications on AWS and on-premises
+  - Parse Logs
+  - Observe metrics like CPU usage and memory usage
+  -  Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. You can configure the following AWS services as targets for CloudWatch Events: Amazon EC2 instances, AWS Lambda functions, Streams in Amazon Kinesis Data Streams, Log groups in Amazon CloudWatch Logs, Amazon ECS tasks, Systems Manager Automation,  cron jobs
+
+The default event bus of another AWS account
+15. Security
+16. Engineering Panel
