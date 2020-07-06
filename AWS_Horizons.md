@@ -25,11 +25,12 @@
 12. Infrastructure as Code with Cloudformation
 13. DNS + Route53
 14. Cloudwatch, Systems Manager and Billing:  Application and Infrastructure Monitoring
-  - CloudWatch collects monitoring and operational data in the form of logs, metrics, and events
+  - **CloudWatch** collects monitoring and operational data in the form of logs, metrics, and events
   - Observability of your AWS resources and applications on AWS and on-premises
   - Parse Logs
   - Observe metrics like CPU usage and memory usage
   -  Amazon CloudWatch Events delivers a near real-time stream of system events that describe changes in Amazon Web Services (AWS) resources. You can configure the following AWS services as targets for CloudWatch Events: Amazon EC2 instances, AWS Lambda functions, Streams in Amazon Kinesis Data Streams, Log groups in Amazon CloudWatch Logs, Amazon ECS tasks, Systems Manager Automation,  cron jobs
+  - **AWS Systems Manager** helps you quickly view operational data for groups of resources, so you can quickly identify any issues that might impact applications that use those resources. Resources can be grouped by applications, application layers, production versus development environments, or anything else you choose. Systems Manager presents the operational data for your resource groups in a single, easy to read dashboard so you don't have to navigate to other AWS consoles. For example, if you have an application that uses Amazon EC2, Amazon S3, and Amazon RDS, you can use Systems Manager to create a resource group for the application and easily see the software installed on your Amazon EC2 instances, any changes in your Amazon S3 objects, or database instances that have stopped.
 
 The default event bus of another AWS account
 15. Security
